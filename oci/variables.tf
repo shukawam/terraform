@@ -19,5 +19,5 @@ variable "private_key" {
 }
 
 variable "compartment_ocid" {
-
+  sensitive = true
 }
