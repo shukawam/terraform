@@ -17,7 +17,7 @@ terraform {
       hostname = "app.terraform.io"
       organization = "shukawam"
       workspaces {
-        name = "oci"
+        name = "work-vm"
       }
     }
 }
