@@ -17,7 +17,7 @@ terraform {
       hostname = "app.terraform.io"
       organization = "shukawam"
       workspaces {
-        name = "work-vm"
+        name = "generative-ai-agent-prerequired"
       }
     }
 }
