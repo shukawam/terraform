@@ -59,5 +59,5 @@ runcmd:
   # Install OCI CLI (default settings)
   - wget -O /tmp/install.sh https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
   - chmod 755 /tmp/install.sh
-  - /tmp/install.sh --accept-all-defaults
+  - /tmp/install.sh --accept-all-defaults --exec-dir /usr/local/bin --python-install-location /usr/local/lib --install-dir /usr/local/lib --script-dir /usr/local/lib
   - rm -rf /tmp/install.sh
