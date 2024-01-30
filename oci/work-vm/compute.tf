@@ -22,9 +22,9 @@ resource "oci_core_instance" "shukawam_instance" {
     subnet_id                 = oci_core_subnet.shukawam_public_subnet.id
   }
   metadata = {
-    user_data = templatefile("./template/cloud-init.yaml", {
+    user_data = base64encode(templatefile("./template/cloud-init.yaml", {
         gh_username = "shukawam"
         password = "ChangeMe!!"
-    })
+    }))
   }
 }
