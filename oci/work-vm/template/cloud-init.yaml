@@ -9,14 +9,14 @@ users:
     lock_passwd: false
     groups: sudo, users, admin
     shell: /bin/bash
-    sudo: ["ALL=(ALL) NOPASSWD=ALL"]
+    sudo: ['ALL=(ALL) NOPASSWD=ALL']
     ssh_import_id:
       - gh:${gh_username}
 system_info:
   default_user:
     name: default-user
     lock_passwd: false
-    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
 ssh_pwauth: no
 random_seed:
   file: /dev/urandom
@@ -24,29 +24,31 @@ random_seed:
   command_required: true
 package_upgrade: true
 packages:
-  - curl
   - vim
   - git
   - unzip
   - gnupg
   - lsb-release
-  - ca-certificates
   - dstat
 runcmd:
   # Add Docker's official GPG key:
   - sudo apt-get update
-  - sudo apt-get install ca-certificates curl gnupg
+  - sudo apt-get install ca-certificates curl
   - sudo install -m 0755 -d /etc/apt/keyrings
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-  - sudo chmod a+r /etc/apt/keyrings/docker.gpg
+  - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - sudo chmod a+r /etc/apt/keyrings/docker.asc
   # Add the repository to Apt sources:
   - echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   - sudo apt-get update
   # Install docker
   - sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  # Manage Docker as a non-root user
+  - sudo groupadd docker
+  - sudo usermod -aG docker $USER
+  - newgrp docker
   # install kubectl
   - curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
   - chmod +x ./kubectl
