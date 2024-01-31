@@ -3,26 +3,26 @@ resource "oci_core_vcn" "shukawam_vcn" {
   compartment_id = var.compartment_ocid
   cidr_block     = local.cidr_block
   display_name   = "shukawam-vcn"
-  dns_label      = local.dsn_label
+  dns_label      = local.prefix
 }
 
 ##### Gateway #####
-resource "oci_core_internet_gateway" "shukawam_igw" {
+resource "oci_core_internet_gateway" "shukawam_internet_gateway" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.shukawam_vcn.id
-  display_name   = "shukawam-igw"
+  display_name   = format("%s-internet-gateway", local.prefix)
 }
 
-resource "oci_core_nat_gateway" "shukawam_ngw" {
+resource "oci_core_nat_gateway" "shukawam_nat_gateway" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.shukawam_vcn.id
-  display_name   = "shukawam-ngw"
+  display_name   = format("%s-nat-gateway", local.prefix)
 }
 
-resource "oci_core_service_gateway" "shukawam_sgw" {
+resource "oci_core_service_gateway" "shukawam_service_gateway" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.shukawam_vcn.id
-  display_name   = "shukawam-sgw"
+  display_name   = format("%s-service-gateway", local.prefix)
   services {
     service_id = local.all_services.id
   }
@@ -32,7 +32,7 @@ resource "oci_core_service_gateway" "shukawam_sgw" {
 resource "oci_core_default_route_table" "public_route_table" {
   manage_default_resource_id = oci_core_vcn.shukawam_vcn.default_route_table_id
   compartment_id             = var.compartment_ocid
-  display_name               = "shukawam-public-route-table"
+  display_name               = format("%s-public-route-table", local.prefix)
   route_rules {
     destination       = local.cidr_block_all
     destination_type  = local.destination_type_cidr
@@ -44,7 +44,7 @@ resource "oci_core_default_route_table" "public_route_table" {
 resource "oci_core_security_list" "shukawam_pub_sl" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.shukawam_vcn.id
-  display_name   = "shukawam-public-security-list"
+  display_name   = format("%s-private-route-table", local.prefix)
   ingress_security_rules {
     protocol = local.protocol_tcp
     source   = local.cidr_block_all
@@ -135,7 +135,7 @@ resource "oci_core_subnet" "shukawam_public_subnet" {
   display_name               = "shukawam-public-subnet"
   route_table_id             = oci_core_vcn.shukawam_vcn.default_route_table_id
   prohibit_public_ip_on_vnic = false
-  dns_label                  = local.dsn_label
+  dns_label                  = format("%s-public", local.prefix)
 }
 
 resource "oci_core_subnet" "shukawam_private_subnet" {
@@ -145,5 +145,5 @@ resource "oci_core_subnet" "shukawam_private_subnet" {
   security_list_ids = [oci_core_security_list.shukawam_pri_sl.id]
   display_name      = "shukawam-private-subnet"
   route_table_id    = oci_core_vcn.shukawam_vcn.default_route_table_id
-  dns_label         = local.dsn_label
+  dns_label         = format("%s-private", local.prefix)
 }
