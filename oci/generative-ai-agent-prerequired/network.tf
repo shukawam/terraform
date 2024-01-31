@@ -135,7 +135,7 @@ resource "oci_core_subnet" "shukawam_public_subnet" {
   display_name               = "shukawam-public-subnet"
   route_table_id             = oci_core_vcn.shukawam_vcn.default_route_table_id
   prohibit_public_ip_on_vnic = false
-  dns_label                  = format("%s-public", local.prefix)
+  dns_label                  = format("%s-pub", local.prefix)
 }
 
 resource "oci_core_subnet" "shukawam_private_subnet" {
@@ -145,5 +145,5 @@ resource "oci_core_subnet" "shukawam_private_subnet" {
   security_list_ids = [oci_core_security_list.shukawam_pri_sl.id]
   display_name      = "shukawam-private-subnet"
   route_table_id    = oci_core_vcn.shukawam_vcn.default_route_table_id
-  dns_label         = format("%s-private", local.prefix)
+  dns_label         = format("%s-pri", local.prefix)
 }
