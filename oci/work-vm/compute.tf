@@ -23,13 +23,13 @@ resource "oci_core_instance" "shukawam_instance" {
   }
   metadata = {
     user_data = base64encode(templatefile("./template/cloud-init.yaml", {
-      gh_username     = "shukawam"
-      password        = "ChangeMe!!"
-      user_ocid        = var.user_ocid
-      fingerprint = var.fingerprint
-      tenancy_ocid     = var.tenancy_ocid
-      region      = var.region
-      private_key = var.private_key
+      gh_username  = "shukawam"
+      password     = "ChangeMe!!"
+      user_ocid    = var.user_ocid
+      fingerprint  = var.fingerprint
+      tenancy_ocid = var.tenancy_ocid
+      region       = var.region
+      private_key  = var.private_key
     }))
   }
 }

@@ -34,7 +34,7 @@ write_files:
       user = ${user_ocid}
       fingerprint = ${fingerprint}
       key_file = /home/${gh_username}/.oci/oci_api_key.pem
-      tenancy = ${tenant_ocid}
+      tenancy = ${tenancy_ocid}
       region = ${region}
 package_upgrade: true
 packages:
