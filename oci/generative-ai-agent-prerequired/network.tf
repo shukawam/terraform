@@ -36,7 +36,7 @@ resource "oci_core_default_route_table" "public_route_table" {
   route_rules {
     destination       = local.cidr_block_all
     destination_type  = local.destination_type_cidr
-    network_entity_id = oci_core_internet_gateway.shukawam_igw.id
+    network_entity_id = oci_core_internet_gateway.shukawam_internet_gateway.id
   }
 }
 
