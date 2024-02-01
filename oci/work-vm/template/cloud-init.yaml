@@ -24,18 +24,18 @@ random_seed:
   file: /dev/urandom
   command: ["pollinate", "-r", "-s", "https://entropy.ubuntu.com"]
   command_required: true
-# write_files:
-#   - path: /home/${gh_username}/.oci/oci_api_key.pem
-#     content: |
-#       ${private_key}
-#   - path: /home/${gh_username}/.oci/config
-#     content: |
-#       [DEFAULT]
-#       user = ${user_ocid}
-#       fingerprint = ${fingerprint}
-#       key_file = /home/${gh_username}/.oci/oci_api_key.pem
-#       tenancy = ${tenancy_ocid}
-#       region = ${region}
+write_files:
+  - path: /home/${gh_username}/.oci/oci_api_key.pem
+    content: |
+      ${private_key}
+  - path: /home/${gh_username}/.oci/config
+    content: |
+      [DEFAULT]
+      user = ${user_ocid}
+      fingerprint = ${fingerprint}
+      key_file = /home/${gh_username}/.oci/oci_api_key.pem
+      tenancy = ${tenancy_ocid}
+      region = ${region}
 package_upgrade: true
 packages:
   - curl
@@ -48,22 +48,22 @@ packages:
   - dstat
 runcmd:
   # Docker
-  - sudo install -m 0755 -d /etc/apt/keyrings
-  - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-  - sudo chmod a+r /etc/apt/keyrings/docker.asc
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
   - |
     echo \
       "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
       $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-  - sudo apt-get update
-  - sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-  - sudo groupadd docker
-  - sudo usermod -aG docker ${gh_username}
+       tee /etc/apt/sources.list.d/docker.list > /dev/null
+  - apt-get update
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  - groupadd docker
+  - usermod -aG docker ${gh_username}
   # Kubectl
   - curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
   - chmod +x ./kubectl
-  - sudo mv ./kubectl /usr/local/bin/kubectl
+  - mv ./kubectl /usr/local/bin/kubectl
   # Fn Project
   - curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
   # OCI CLI
