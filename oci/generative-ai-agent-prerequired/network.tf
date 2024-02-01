@@ -41,10 +41,10 @@ resource "oci_core_default_route_table" "public_route_table" {
 }
 
 ##### Security Lists #####
-resource "oci_core_security_list" "shukawam_pub_sl" {
+resource "oci_core_security_list" "shukawam_public_security_list" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.shukawam_vcn.id
-  display_name   = format("%s-private-route-table", local.prefix)
+  display_name   = format("%s-public-security-list", local.prefix)
   ingress_security_rules {
     protocol = local.protocol_tcp
     source   = local.cidr_block_all
@@ -91,10 +91,10 @@ resource "oci_core_security_list" "shukawam_pub_sl" {
   }
 }
 
-resource "oci_core_security_list" "shukawam_pri_sl" {
+resource "oci_core_security_list" "shukawam_private_security_list" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.shukawam_vcn.id
-  display_name   = "shukawam-private-security-list"
+  display_name   = format("%s-private-security-list", local.prefix)
   ingress_security_rules {
     protocol = local.protocol_tcp
     source   = local.cidr_block
@@ -131,8 +131,8 @@ resource "oci_core_subnet" "shukawam_public_subnet" {
   cidr_block                 = local.cidr_block_public_subnet
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_vcn.shukawam_vcn.id
-  security_list_ids          = [oci_core_security_list.shukawam_pub_sl.id]
-  display_name               = "shukawam-public-subnet"
+  security_list_ids          = [oci_core_security_list.shukawam_public_security_list.id]
+  display_name               = format("%s-public-subnet", local.prefix)
   route_table_id             = oci_core_vcn.shukawam_vcn.default_route_table_id
   prohibit_public_ip_on_vnic = false
   dns_label                  = format("%sPub", local.prefix)
@@ -142,8 +142,8 @@ resource "oci_core_subnet" "shukawam_private_subnet" {
   cidr_block        = local.cidr_block_private_subnet
   compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.shukawam_vcn.id
-  security_list_ids = [oci_core_security_list.shukawam_pri_sl.id]
-  display_name      = "shukawam-private-subnet"
+  security_list_ids = [oci_core_security_list.shukawam_private_security_list.id]
+  display_name      = format("%s-private-subnet", local.prefix)
   route_table_id    = oci_core_vcn.shukawam_vcn.default_route_table_id
   dns_label         = format("%sPri", local.prefix)
 }
