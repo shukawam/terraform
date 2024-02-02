@@ -84,6 +84,14 @@ resource "oci_core_security_list" "shukawam_public_security_list" {
       min = "5601"
     }
   }
+  ingress_security_rules {
+    protocol = local.protocol_tcp
+    source   = local.cidr_block_all
+    tcp_options {
+      max = "6379"
+      min = "6379"
+    }
+  }
   egress_security_rules {
     description = "Allow trafic for all ports"
     destination = local.cidr_block_all
