@@ -24,18 +24,6 @@ random_seed:
   file: /dev/urandom
   command: ["pollinate", "-r", "-s", "https://entropy.ubuntu.com"]
   command_required: true
-write_files:
-  - path: /home/${gh_username}/.oci/oci_api_key.pem
-    content: |
-      ${private_key}
-  - path: /home/${gh_username}/.oci/config
-    content: |
-      [DEFAULT]
-      user = ${user_ocid}
-      fingerprint = ${fingerprint}
-      key_file = /home/${gh_username}/.oci/oci_api_key.pem
-      tenancy = ${tenancy_ocid}
-      region = ${region}
 package_upgrade: true
 packages:
   - curl
