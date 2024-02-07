@@ -23,7 +23,7 @@ data "oci_core_images" "images" {
   compartment_id = var.compartment_ocid
   filter {
     name   = "display_name"
-    values = ["Oracle-Linux-9.3-2024.01.26-*"]
+    values = ["Oracle-Linux-8.8-2023.05.25-*"]
     regex  = true
   }
 }
