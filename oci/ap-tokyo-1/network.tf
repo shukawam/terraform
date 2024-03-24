@@ -1,4 +1,3 @@
-##### VCN #####
 resource "oci_core_vcn" "vcn" {
   compartment_id = var.compartment_ocid
   cidr_block     = local.cidr_block.vcn
@@ -7,7 +6,6 @@ resource "oci_core_vcn" "vcn" {
   freeform_tags  = local.freeform_tags
 }
 
-##### Gateway #####
 resource "oci_core_internet_gateway" "internet_gateway" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
@@ -32,7 +30,6 @@ resource "oci_core_service_gateway" "service_gateway" {
   freeform_tags = local.freeform_tags
 }
 
-##### Route Table #####
 resource "oci_core_default_route_table" "public_route_table" {
   manage_default_resource_id = oci_core_vcn.vcn.default_route_table_id
   compartment_id             = var.compartment_ocid
@@ -62,7 +59,6 @@ resource "oci_core_route_table" "private_route_table" {
   freeform_tags = local.freeform_tags
 }
 
-##### Security Lists #####
 resource "oci_core_default_security_list" "default_security_list" {
   manage_default_resource_id = oci_core_vcn.vcn.default_security_list_id
   compartment_id             = var.compartment_ocid
@@ -127,8 +123,6 @@ resource "oci_core_security_list" "custom_security_list" {
   freeform_tags = local.freeform_tags
 }
 
-
-##### Subnet #####
 resource "oci_core_subnet" "public_subnet" {
   cidr_block     = local.cidr_block.public
   compartment_id = var.compartment_ocid
