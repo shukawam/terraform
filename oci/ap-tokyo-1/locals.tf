@@ -26,7 +26,17 @@ locals {
   }
   ad           = data.oci_identity_availability_domains.ads.availability_domains[0].name
   all_services = data.oci_core_services.all_services.services.0
+}
+
+locals {
   freeform_tags = {
     "CreatedBy" = "Terraform"
+  }
+}
+
+locals {
+  functions_shape = {
+    x86 = "GENERIC_X86"
+    arm = "GENERIC_ARM"
   }
 }
