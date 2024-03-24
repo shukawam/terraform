@@ -9,14 +9,14 @@ resource "oci_core_vcn" "vcn" {
 resource "oci_core_internet_gateway" "internet_gateway" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
-  display_name   = format("%s-internet-gateway")
+  display_name   = format("%s-internet-gateway", var.prefix)
   freeform_tags  = local.freeform_tags
 }
 
 resource "oci_core_nat_gateway" "nat_gateway" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vcn.id
-  display_name   = format("%s-nat-gateway")
+  display_name   = format("%s-nat-gateway", var.prefix)
   freeform_tags  = local.freeform_tags
 }
 
