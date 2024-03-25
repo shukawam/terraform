@@ -1,3 +1,4 @@
+##### Networks
 locals {
   cidr_block = {
     all     = "0.0.0.0/0"
@@ -28,15 +29,23 @@ locals {
   all_services = data.oci_core_services.all_services.services.0
 }
 
+##### Common
 locals {
   freeform_tags = {
     "CreatedBy" = "Terraform"
   }
 }
 
+##### OCI Functions
 locals {
   functions_shape = {
     x86 = "GENERIC_X86"
     arm = "GENERIC_ARM"
   }
+}
+
+##### Compute
+locals {
+  image = data.oci_core_images.images.images[0].id
+  shape = data.oci_core_shapes.shapes.shapes[0].shape
 }
