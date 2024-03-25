@@ -23,7 +23,7 @@ data "oci_core_images" "ubuntu_22_04" {
   compartment_id = var.compartment_ocid
   filter {
     name   = "display_name"
-    values = ["Canonical-Ubuntu-22.04-2023.09.27-*"]
+    values = ["Canonical-Ubuntu-22.04-2024.02.18-*"]
     regex  = true
   }
 }

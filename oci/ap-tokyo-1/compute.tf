@@ -2,7 +2,7 @@ resource "oci_core_instance" "instance" {
   availability_domain = local.ad
   compartment_id      = var.compartment_ocid
   source_details {
-    source_id   = local.ubuntu_22_04
+    source_id   = local.ubuntu
     source_type = "image"
   }
   shape = local.shape

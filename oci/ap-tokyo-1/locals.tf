@@ -46,6 +46,6 @@ locals {
 
 ##### Compute
 locals {
-  ubuntu_22_04 = data.oci_core_images.ubuntu_22_04.images[0].id
+  ubuntu = data.oci_core_images.ubuntu_22_04.images[0].id
   shape = data.oci_core_shapes.shapes.shapes[0].name
 }
