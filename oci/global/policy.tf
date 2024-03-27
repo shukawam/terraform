@@ -3,9 +3,10 @@ resource "oci_identity_policy" "all_allowed_policy" {
   description    = "all allowed policy"
   name           = format("%s-all-allowed-policy", var.prefix)
   statements = [
-    "Allow group member-shuhei.kawamura to manage all-resources in compartment shuhei.kawamura",
+    "Allow group member-shuhei.kawamura_admins to manage all-resources in compartment shuhei.kawamura",
     "Allow dynamic-group member-shuhei.kawamura_dynamic_group to manage all-resources in compartment shuhei.kawamura"
   ]
+  freeform_tags = local.freeform_tags
 }
 
 resource "oci_identity_policy" "service_policy" {
@@ -27,4 +28,5 @@ resource "oci_identity_policy" "service_policy" {
     "Allow service OKE to manage all-resources in compartment shuhei.kawamura",
     "Allow service FaaS to use apm-domains in compartment shuhei.kawamura",
   ]
+  freeform_tags = local.freeform_tags
 }
