@@ -19,4 +19,5 @@ resource "oci_core_instance" "shukawam_instance" {
   metadata = {
     user_data = local.compute.cloud_init
   }
+  freeform_tags = local.freeform_tags
 }
