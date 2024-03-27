@@ -40,7 +40,8 @@ variable "opensearch_master_username" {
 }
 
 variable "opensearch_master_user_password_hash" {
-  default = "pbkdf2_stretch_1000$CNwrUogB3N5fKS+lXZuwRk0mMXvUbO3i$Qa9RzF3Wp70A37VDKzvNRvzfQxXL5COvZxZkyov46ew="
+  default = "pbkdf2_stretch_1000$ZiyvY/PfAWhIGom4H6zq2H8wC6/S0nVX$rU7/uHuxLHzP3PSSr0GjvcnnuNLZbMn/E/RGw73JAKM="
+  description = "default value: wellcome"
 }
 
 variable "gh_username" {
