@@ -49,7 +49,7 @@ locals {
   compute = {
     ubuntu     = data.oci_core_images.ubuntu_22_04.images[0].id
     shape      = data.oci_core_shapes.shapes.shapes[0].name
-    cloud_init = data.template_cloudinit_config.cloud_init_config[0].rendered
+    cloud_init = data.template_cloudinit_config.cloud_init_config.rendered
   }
 }
 
