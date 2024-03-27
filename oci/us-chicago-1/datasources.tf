@@ -44,7 +44,7 @@ data "template_cloudinit_config" "cloud_init_config" {
   base64_encode = true
   gzip          = true
   part {
-    content      = data.template_file.cloud_init[0].redered
+    content      = data.template_file.cloud_init[0].rendered
     content_type = "text/cloud-config"
   }
 }
