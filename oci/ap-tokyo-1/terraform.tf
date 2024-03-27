@@ -14,8 +14,7 @@ terraform {
       version = "< 6.0.0"
     }
   }
-  backend "remote" {
-    hostname     = "app.terraform.io"
+  cloud {
     organization = "shukawam"
     workspaces {
       name = "ap-tokyo-1"
