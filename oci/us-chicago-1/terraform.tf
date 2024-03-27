@@ -19,6 +19,5 @@ terraform {
     workspaces {
       name = "us-chicago-1"
     }
-
   }
 }
