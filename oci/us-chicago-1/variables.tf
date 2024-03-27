@@ -1,5 +1,5 @@
 variable "region" {
-  default = "ap-tokyo-1"
+  default = "us-chicago-1"
 }
 
 variable "tenancy_ocid" {
