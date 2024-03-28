@@ -14,7 +14,7 @@ data "oci_core_shapes" "shapes" {
   compartment_id = var.compartment_ocid
   filter {
     name   = "name"
-    values = ["VM.Standard.E.*Flex"]
+    values = ["VM.Standard.E5.*Flex"]
     regex  = true
   }
 }
