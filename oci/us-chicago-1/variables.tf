@@ -47,3 +47,7 @@ variable "opensearch_master_user_password_hash" {
 variable "gh_username" {
   default = "shukawam"
 }
+
+variable "public_key" {
+  
+}

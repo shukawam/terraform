@@ -28,6 +28,15 @@ data "oci_core_images" "ubuntu_22_04" {
   }
 }
 
+data "oci_core_images" "oracle_linux_8_9" {
+  compartment_id = var.compartment_ocid
+  filter {
+    name   = "display_name"
+    values = ["Oracle-Linux-8.9-2024.02.26-*"]
+    regex  = true
+  }
+}
+
 data "oci_objectstorage_namespace" "namespace" {
   compartment_id = var.compartment_ocid
 }
