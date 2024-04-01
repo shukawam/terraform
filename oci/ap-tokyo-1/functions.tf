@@ -16,7 +16,7 @@ resource "oci_functions_application" "application" {
 resource "oci_functions_function" "get_secret_content_from_vault" {
   application_id = oci_functions_application.application.id
   display_name   = "get-secret-from-vault"
-  image          = "nrt.ocir.io/orasejapan/shukawam/fn/get_secret_content_from_vault:0.0.1"
+  image          = "nrt.ocir.io/orasejapan/shukawam/fn/get-secret-content-from-vault:0.0.1"
   memory_in_mbs  = 128
   trace_config {
     is_enabled = true
