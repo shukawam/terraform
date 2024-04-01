@@ -21,4 +21,5 @@ resource "oci_functions_function" "get_secret_content_from_vault" {
   trace_config {
     is_enabled = true
   }
+  freeform_tags = local.freeform_tags
 }
