@@ -3,7 +3,7 @@ resource "oci_opensearch_opensearch_cluster" "opensearch_cluster" {
   display_name          = format("%s-opensearch-cluster", var.prefix)
   vcn_id                = oci_core_vcn.vcn.id
   vcn_compartment_id    = var.compartment_ocid
-  subnet_id             = oci_core_subnet.public_subnet.id
+  subnet_id             = oci_core_subnet.private_subnet.id
   subnet_compartment_id = var.compartment_ocid
   software_version      = var.opensearch_version
   # Data Nodes
