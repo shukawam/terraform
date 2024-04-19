@@ -43,7 +43,7 @@ resource "oci_core_instance" "database_instance" {
     subnet_id                 = oci_core_subnet.public_subnet.id
   }
   metadata = {
-    authorized_keys = base64encode(var.public_key)
+    authorized_keys = var.public_key
   }
   freeform_tags = local.freeform_tags
 }
