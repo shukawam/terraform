@@ -49,3 +49,12 @@ locals {
   ubuntu = data.oci_core_images.ubuntu_22_04.images[0].id
   shape  = data.oci_core_shapes.shapes.shapes[0].name
 }
+
+##### Healthchecks
+locals {
+  healthcheck = {
+    interval_in_seconds = 300
+    protocol            = "HTTPS"
+  }
+
+}
