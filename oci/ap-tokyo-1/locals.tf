@@ -53,7 +53,7 @@ locals {
 ##### Healthchecks
 locals {
   healthcheck = {
-    interval_in_seconds = 300
+    interval_in_seconds = 1800
     protocol            = "HTTPS"
   }
 
