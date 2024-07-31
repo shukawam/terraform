@@ -30,3 +30,7 @@ variable "compartment_ocid" {
 variable "prefix" {
 
 }
+
+variable "slack_endpoint" {
+  
+}

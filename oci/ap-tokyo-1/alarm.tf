@@ -3,7 +3,7 @@ resource "oci_monitoring_alarm" "grafana_alert" {
   metric_compartment_id = var.compartment_ocid
   namespace             = "oci_healthchecks"
   display_name          = "grafana-alert"
-  destinations          = local.alert.destination_topic
+  destinations          = [oci_ons_notification_topic.topic.id]
   is_enabled            = true
   query                 = "HTTP.isHealthy[30m]{target = \"grafana.shukawam.me\"}.min() == 0"
   severity              = "CRITICAL"
@@ -14,7 +14,7 @@ resource "oci_monitoring_alarm" "keycloak_alert" {
   metric_compartment_id = var.compartment_ocid
   namespace             = "oci_healthchecks"
   display_name          = "keycloak-alert"
-  destinations          = local.alert.destination_topic
+  destinations          = [oci_ons_notification_topic.topic.id]
   is_enabled            = true
   query                 = "HTTP.isHealthy[30m]{target = \"keycloak.shukawam.me\"}.min() == 0"
   severity              = "CRITICAL"
@@ -25,7 +25,7 @@ resource "oci_monitoring_alarm" "argocd_alert" {
   metric_compartment_id = var.compartment_ocid
   namespace             = "oci_healthchecks"
   display_name          = "argocd-alert"
-  destinations          = local.alert.destination_topic
+  destinations          = [oci_ons_notification_topic.topic.id]
   is_enabled            = true
   query                 = "HTTP.isHealthy[30m]{target = \"argocd.shukawam.me\"}.min() == 0"
   severity              = "CRITICAL"
@@ -36,7 +36,7 @@ resource "oci_monitoring_alarm" "langfuse_alert" {
   metric_compartment_id = var.compartment_ocid
   namespace             = "oci_healthchecks"
   display_name          = "langfuse-alert"
-  destinations          = local.alert.destination_topic
+  destinations          = [oci_ons_notification_topic.topic.id]
   is_enabled            = true
   query                 = "HTTP.isHealthy[30m]{target = \"langfuse.shukawam.me\"}.min() == 0"
   severity              = "CRITICAL"
