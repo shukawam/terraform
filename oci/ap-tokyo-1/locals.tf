@@ -56,5 +56,11 @@ locals {
     interval_in_seconds = 1800
     protocol            = "HTTPS"
   }
+}
 
+##### Alert
+locals {
+  alert = {
+    destination_topic = [ "shukawam-topic" ]
+  }
 }
