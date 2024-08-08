@@ -1,0 +1,61 @@
+#cloud-config
+chpasswd:
+  expire: false
+  users:
+    - name: ${gh_username}
+      password: ${password}
+      type: text
+users:
+  - default
+  - name: ${gh_username}
+    lock_passwd: false
+    groups: sudo, users, admin
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_import_id:
+      - gh:${gh_username}
+system_info:
+  default_user:
+    name: default-user
+    lock_passwd: false
+    sudo: ALL=(ALL) NOPASSWD:ALL
+ssh_pwauth: no
+random_seed:
+  file: /dev/urandom
+  command: ["pollinate", "-r", "-s", "https://entropy.ubuntu.com"]
+  command_required: true
+package_upgrade: true
+packages:
+  - curl
+  - vim
+  - git
+  - unzip
+  - gnupg
+  - lsb-release
+  - ca-certificates
+  - dstat
+runcmd:
+  # Docker
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
+  - |
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+       tee /etc/apt/sources.list.d/docker.list > /dev/null
+  - apt-get update
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  - groupadd docker
+  - usermod -aG docker ${gh_username}
+  # Kubectl
+  - curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  - chmod +x ./kubectl
+  - mv ./kubectl /usr/local/bin/kubectl
+  # Fn Project
+  - curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
+  # OCI CLI
+  - wget -O /tmp/install.sh https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
+  - chmod 755 /tmp/install.sh
+  - /tmp/install.sh --accept-all-defaults --exec-dir /usr/local/bin --python-install-location /usr/local/lib --install-dir /usr/local/lib --script-dir /usr/local/lib
+  - rm -rf /tmp/install.sh
