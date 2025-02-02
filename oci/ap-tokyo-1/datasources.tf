@@ -19,14 +19,14 @@ data "oci_core_shapes" "shapes" {
   }
 }
 
-data "oci_core_images" "ubuntu_22_04" {
-  compartment_id = var.compartment_ocid
-  filter {
-    name   = "display_name"
-    values = ["Canonical-Ubuntu-24.04-2024.06.26-*"]
-    regex  = true
-  }
-}
+# data "oci_core_images" "ubuntu_22_04" {
+#   compartment_id = var.compartment_ocid
+#   filter {
+#     name   = "display_name"
+#     values = ["Canonical-Ubuntu-24.04-2024.06.26-*"]
+#     regex  = true
+#   }
+# }
 
 data "oci_objectstorage_namespace" "namespace" {
   compartment_id = var.compartment_ocid
