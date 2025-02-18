@@ -8,3 +8,11 @@ resource "auth0_action" "add_groups_claim" {
     version = "v3"
   }
 }
+
+resource "auth0_trigger_actions" "post_login_flow" {
+  trigger = "post-login"
+  actions {
+    id           = auth0_action.add_groups_claim.id
+    display_name = auth0_action.add_groups_claim.name
+  }
+}
