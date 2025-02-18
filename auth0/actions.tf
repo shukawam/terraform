@@ -5,6 +5,6 @@ resource "auth0_action" "add_groups_claim" {
   deploy  = true
   supported_triggers {
     id      = "post-login"
-    version = "Version 1"
+    version = "v3"
   }
 }
