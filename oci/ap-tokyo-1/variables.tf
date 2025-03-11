@@ -32,5 +32,13 @@ variable "prefix" {
 }
 
 variable "slack_endpoint" {
-  
+
+}
+
+variable "admin_username" {
+
+}
+
+variable "admin_password" {
+
 }
