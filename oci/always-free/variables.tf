@@ -26,3 +26,7 @@ variable "compartment_ocid" {
   sensitive   = true
   description = "Compartment OCID"
 }
+
+variable "prefix" {
+  description = "Prefix of resource"
+}
